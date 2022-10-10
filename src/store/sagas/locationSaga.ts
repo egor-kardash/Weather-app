@@ -2,17 +2,16 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 
 import { parseLocationData } from '@/helpers';
 import { LocationService } from '@/services';
-import { GeoLocation, IAPIResponse, Location } from '@/types';
-
 import {
   loadLocation,
   loadLocationByCityName,
   loadLocationError,
-} from '../actionCreators';
+} from '@/store/actionCreators';
 import {
   CURRENT_LOCATION_REQUESTED,
   LOCATION_REQUESTED_BY_CITY,
-} from '../actionTypes';
+} from '@/store/actionTypes';
+import { GeoLocation, IAPIResponse, Location } from '@/types';
 
 function* fetchCurrentLocation() {
   try {

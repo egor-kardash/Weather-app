@@ -1,11 +1,11 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 
 import { parseGoogleDataResponse } from '@/helpers';
+import { loadEvents, loadEventsError } from '@/store/actionCreators';
 import { EVENTS_REQUESTED } from '@/store/actionTypes';
 import { IGoogleAPIResponse } from '@/types';
 import { apiCalendar } from '@/utils';
 
-import { loadEvents, loadEventsError } from '../actionCreators';
 
 function* loadEventsCalendar() {
   try {
