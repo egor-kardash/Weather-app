@@ -20,7 +20,9 @@ export const EventsCalendar = () => {
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
 
   useEffect(() => {
-    dispatch({ type: EVENTS_REQUESTED });
+    if (isSignedIn) {
+      dispatch({ type: EVENTS_REQUESTED });
+    }
   }, [isSignedIn]);
 
   const handleClick = () => {
@@ -31,17 +33,17 @@ export const EventsCalendar = () => {
       }, 7000);
     }
   };
-
   return (
     <EventsContainer>
       {!isSignedIn && <GoogleButton onClick={handleClick} />}
-      {data?.map((item) => (
-        <Event
-          key={getId()}
-          time={item.start.dateTime}
-          summary={item.summary}
-        />
-      ))}
+      {isSignedIn &&
+        data?.map((item) => (
+          <Event
+            key={getId()}
+            time={item.start.dateTime}
+            summary={item.summary}
+          />
+        ))}
     </EventsContainer>
   );
 };
