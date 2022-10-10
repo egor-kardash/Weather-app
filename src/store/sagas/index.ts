@@ -1,19 +1,17 @@
 import { all } from 'redux-saga/effects';
 
+import { watchloadEventsCalendar } from './eventsSaga';
 import {
   watchFetchCurrentLocation,
   watchFetchLocationByCityName,
 } from './locationSaga';
-import {
-  watchFetchTodaysWeather,
-  watchfetchWeatherForecast,
-} from './weatherSaga';
+import { watchfetchWeatherForecast } from './weatherSaga';
 
 export default function* rootSaga() {
   yield all([
-    watchFetchTodaysWeather(),
     watchFetchCurrentLocation(),
     watchFetchLocationByCityName(),
     watchfetchWeatherForecast(),
+    watchloadEventsCalendar(),
   ]);
 }

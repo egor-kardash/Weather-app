@@ -1,2 +1,2 @@
-export { WeatherService } from './Weather.service';
-export { LocationService } from './Location.service';
+export { WeatherService } from './weatherService';
+export { LocationService } from './locationService';

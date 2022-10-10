@@ -1,6 +1,5 @@
-import { IAPI } from '@/interfaces';
-
-import { SET_API } from '../actionTypes';
+import { SET_API } from '@/store/actionTypes';
+import { IAPI } from '@/types';
 
 const initialState: IAPI = {
   currentAPI: 'OpenWeather',

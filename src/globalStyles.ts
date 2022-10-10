@@ -1,23 +1,24 @@
 import { createGlobalStyle } from 'styled-components';
 
+import theme from './theme';
+
 export const GlobalStyles = createGlobalStyle`
   * {
-    margin: 0;
-    padding: 0;
+    margin: ${theme.spaces[0]};
+    padding: ${theme.spaces[0]};
     box-sizing: border-box;
-
-    font-family: 'Gilroy';
+    font-family: ${theme.font};
   }
 
   html, body {
-    width: 100%;
-    height: 100%;
+    width: ${theme.percentageSizes[15]}%;
+    height: ${theme.percentageSizes[15]}%;
   }
 
   body {  
     & > #root {
-      width: 100%;
-      height: 100%;
+      width: ${theme.percentageSizes[15]}%;
+      height: ${theme.percentageSizes[15]}%;
     }
   }
 

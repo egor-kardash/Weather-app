@@ -1,27 +1,27 @@
-import { LOAD_WEATHER, LOAD_WEATHER_ERROR } from '@/store/actionTypes';
-import { IAPIResponse, IState, Weather } from '@/types';
+import { LOAD_EVENTS, LOAD_EVENTS_ERROR } from '@/store/actionTypes';
+import { GoogleEvent, IGoogleAPIResponse, IState } from '@/types';
 
-const initialState: IState<Weather[]> = {
+const initialState: IState<GoogleEvent[]> = {
   data: [],
   isLoading: false,
   status: 0,
   statusText: '',
 };
 
-export const weatherReducer = (
+export const eventsReducer = (
   state = initialState,
-  action: { type: string; payload: IAPIResponse<Weather[]> },
+  action: { type: string; payload: IGoogleAPIResponse },
 ) => {
   switch (action.type) {
-    case LOAD_WEATHER:
+    case LOAD_EVENTS:
       return {
         ...state,
-        data: action.payload.data,
+        data: action.payload.result.items,
         isLoading: true,
         status: action.payload.status,
         statusText: action.payload.statusText,
       };
-    case LOAD_WEATHER_ERROR:
+    case LOAD_EVENTS_ERROR:
       return {
         ...state,
         isLoading: false,
