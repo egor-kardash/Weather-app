@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 
+import { gapi } from 'gapi-script';
 import GoogleButton from 'react-google-button';
+import { GoogleLogin } from 'react-google-login';
 import { useDispatch } from 'react-redux';
 import { v4 as getId } from 'uuid';
 
@@ -8,7 +10,6 @@ import { Event } from '@/components/Event';
 import { useAppSelector } from '@/hooks';
 import { EVENTS_REQUESTED } from '@/store/actionTypes';
 import { GoogleEvent, IState } from '@/types';
-import { apiCalendar } from '@/utils';
 
 import { EventsContainer } from './styled';
 
@@ -20,22 +21,37 @@ export const EventsCalendar = () => {
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
 
   useEffect(() => {
+    const initClient = () => {
+      gapi.client.init({
+        clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID as string,
+      });
+    };
+    gapi.load('client:auth2', initClient);
+  }, []);
+
+  useEffect(() => {
     if (isSignedIn) {
       dispatch({ type: EVENTS_REQUESTED });
     }
   }, [isSignedIn]);
 
-  const handleClick = () => {
-    if (!isSignedIn) {
-      apiCalendar.handleAuthClick();
-      setTimeout(() => {
-        setIsSignedIn(true);
-      }, 7000);
-    }
+  const onSuccessLogin = () => {
+    setTimeout(() => {
+      setIsSignedIn(true);
+    }, 500);
   };
+
   return (
     <EventsContainer>
-      {!isSignedIn && <GoogleButton onClick={handleClick} />}
+      {!isSignedIn && (
+        <GoogleLogin
+          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID as string}
+          render={renderProps => (
+            <GoogleButton onClick={renderProps.onClick} />
+          )}
+          onSuccess={onSuccessLogin}
+        />
+      )}
       {isSignedIn &&
         data?.map((item) => (
           <Event
