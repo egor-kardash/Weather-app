@@ -24,6 +24,7 @@ export const EventsCalendar = () => {
     const initClient = () => {
       gapi.client.init({
         clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID as string,
+        scope: 'https://www.googleapis.com/auth/calendar',
       });
     };
     gapi.load('client:auth2', initClient);
@@ -46,7 +47,7 @@ export const EventsCalendar = () => {
       {!isSignedIn && (
         <GoogleLogin
           clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID as string}
-          render={renderProps => (
+          render={(renderProps) => (
             <GoogleButton onClick={renderProps.onClick} />
           )}
           onSuccess={onSuccessLogin}
