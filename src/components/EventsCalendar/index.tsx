@@ -24,7 +24,7 @@ export const EventsCalendar = () => {
     const initClient = () => {
       gapi.client.init({
         clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID as string,
-        scope: 'https://www.googleapis.com/auth/calendar',
+        scope: process.env.REACT_APP_GOOGLE_SCOPE as string,
       });
     };
     gapi.load('client:auth2', initClient);
